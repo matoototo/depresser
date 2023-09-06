@@ -3,10 +3,12 @@ import Cocoa
 let threshold: UInt64 = 100_000_000  // 100 milliseconds in nanoseconds
 var lastKeyPressTime = DispatchTime.now()
 
+let targetKeyCode: CGKeyCode = 38  // Change this to set the targeted key. 38 is for "j".
+
 func eventTapCallback(proxy: CGEventTapProxy, type: CGEventType, event: CGEvent, refcon: UnsafeMutableRawPointer?) -> Unmanaged<CGEvent>? {
     if type == .keyDown {
         let keyCode = event.getIntegerValueField(.keyboardEventKeycode)
-        if keyCode == 38 {  // 38 is the virtual key code for "j"
+        if keyCode == targetKeyCode {
             let currentTime = DispatchTime.now()
             let elapsedTime = currentTime.uptimeNanoseconds - lastKeyPressTime.uptimeNanoseconds
             
